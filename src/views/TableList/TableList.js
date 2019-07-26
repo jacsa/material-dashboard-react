@@ -27,6 +27,8 @@ import Table from "components/Table/Table.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import { compose } from 'recompose';
+import { withAuthorization } from '../../components/Session';
 
 const styles = {
   cardCategoryWhite: {
@@ -132,4 +134,10 @@ TableList.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(styles)(TableList);
+const condition = authUser => !!authUser;
+export default compose(
+  withStyles(styles),
+  withAuthorization(condition),
+)(TableList);
+
+//export default withStyles(styles)(TableList);

@@ -37,8 +37,12 @@ import Search from "@material-ui/icons/Search";
 // core components
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
+import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
 
 import headerLinksStyle from "assets/jss/material-dashboard-react/components/headerLinksStyle.jsx";
+
 
 class AdminNavbarLinks extends React.Component {
   state = {
@@ -62,7 +66,19 @@ class AdminNavbarLinks extends React.Component {
       return;
     }
     this.setState({ openProfile: false });
+
   };
+
+  handleLogOut = event => {
+    this.props.firebase
+    .doSignOut()
+    .then((t) => {
+      this.props.history.push("/signin");
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
   render() {
     const { classes } = this.props;
     const { openNotifcation, openProfile } = this.state;
@@ -232,7 +248,7 @@ class AdminNavbarLinks extends React.Component {
                       </MenuItem>
                       <Divider light />
                       <MenuItem
-                        onClick={this.handleCloseProfile}
+                        onClick={this.handleLogOut}
                         className={classes.dropdownItem}
                       >
                         Logout
@@ -253,4 +269,4 @@ AdminNavbarLinks.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(headerLinksStyle)(AdminNavbarLinks);
+export default compose(withStyles(headerLinksStyle),withRouter,withFirebase)(AdminNavbarLinks)

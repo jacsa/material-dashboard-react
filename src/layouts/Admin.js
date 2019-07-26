@@ -24,15 +24,17 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import Navbar from "components/Navbars/Navbar.jsx";
-import Footer from "components/Footer/Footer.jsx";
+import Navbar from "components/Navbars/Navbar";
+//import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
-
+//import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import routes from "routes.js";
+import { withRouter } from 'react-router-dom';
+import { compose } from 'recompose';
+import { withFirebase } from '../components/Firebase';
+import { withAuthorization } from '../components/Session';
 
-import rtlStyle from "assets/jss/material-dashboard-react/layouts/rtlStyle.jsx";
-
+import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
@@ -41,7 +43,7 @@ let ps;
 const switchRoutes = (
   <Switch>
     {routes.map((prop, key) => {
-      if (prop.layout === "/rtl") {
+      if (prop.layout === "/admin") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -52,16 +54,16 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/rtl" to="/rtl/rtl-page" />
+    {/* <Redirect from="/admin" to="/admin/dashboard" /> */}
   </Switch>
 );
 
-class RTL extends React.Component {
+class Dashboard extends React.Component {
   state = {
     image: image,
-    color: "blue",
+    color: "red",
     hasImage: true,
-    fixedClasses: "dropdown ",
+    fixedClasses: "dropdown show",
     mobileOpen: false
   };
   mainPanel = React.createRef();
@@ -90,14 +92,17 @@ class RTL extends React.Component {
     }
   };
   componentDidMount() {
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps = new PerfectScrollbar(this.mainPanel.current);
+
+    if(this.mainPanel != null){
+      if (navigator.platform.indexOf("Win") > -1) {
+        ps = new PerfectScrollbar(this.mainPanel.current);
+      }
+      window.addEventListener("resize", this.resizeFunction);
     }
-    window.addEventListener("resize", this.resizeFunction);
   }
   componentDidUpdate(e) {
     if (e.history.location.pathname !== e.location.pathname) {
-      this.mainPanel.current.mainPanel.scrollTop = 0;
+      this.mainPanel.current.scrollTop = 0;
       if (this.state.mobileOpen) {
         this.setState({ mobileOpen: false });
       }
@@ -111,52 +116,40 @@ class RTL extends React.Component {
   }
   render() {
     const { classes, ...rest } = this.props;
-    return (
-      <div className={classes.wrapper}>
-        <Sidebar
-          routes={routes}
-          logoText={"الإبداعية تيم"}
-          logo={logo}
-          image={this.state.image}
-          handleDrawerToggle={this.handleDrawerToggle}
-          open={this.state.mobileOpen}
-          color={this.state.color}
-          rtlActive
-          {...rest}
-        />
-        <div className={classes.mainPanel} ref={this.mainPanel}>
-          <Navbar
+    return ( <div className={classes.wrapper}>
+          <Sidebar
             routes={routes}
+            logoText={"ATISA"}
+            logo={logo}
+            image={this.state.image}
             handleDrawerToggle={this.handleDrawerToggle}
-            rtlActive
+            open={this.state.mobileOpen}
+            color={this.state.color}
             {...rest}
           />
-          {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-          {this.getRoute() ? (
-            <div className={classes.content}>
-              <div className={classes.container}>{switchRoutes}</div>
-            </div>
-          ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
-          {this.getRoute() ? <Footer /> : null}
-          <FixedPlugin
-            handleImageClick={this.handleImageClick}
-            handleColorClick={this.handleColorClick}
-            bgColor={this.state["color"]}
-            bgImage={this.state["image"]}
-            handleFixedClick={this.handleFixedClick}
-            fixedClasses={this.state.fixedClasses}
-            rtlActive
-          />
+          <div className={classes.mainPanel} ref={this.mainPanel}>
+            <Navbar
+              routes={routes}
+              handleDrawerToggle={this.handleDrawerToggle}
+              {...rest}
+            />
+            {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
+            {this.getRoute() ? (
+              <div className={classes.content}>
+                <div className={classes.container}>{switchRoutes}</div>
+              </div>
+            ) : (
+              <div className={classes.map}>{switchRoutes}</div>
+            )}
+          </div>
         </div>
-      </div>
     );
   }
 }
 
-RTL.propTypes = {
+Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(rtlStyle)(RTL);
+const condition = authUser => !!authUser;
+export default compose(withStyles(dashboardStyle),withAuthorization(condition),withRouter,withFirebase)(Dashboard)
