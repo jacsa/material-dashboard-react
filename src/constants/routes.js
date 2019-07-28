@@ -9,3 +9,5 @@ export const DASHBOARD = '/admin/dashboard';
 export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pw-forget';
+
+export const EDIT_PAIS = '/admin/editpais/:id';

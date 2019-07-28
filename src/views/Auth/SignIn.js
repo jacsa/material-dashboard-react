@@ -43,7 +43,7 @@ const SignIn = ({ firebase,history }) => {
 
     };         
     return (
-        <Page.Auth>
+        <Page.Auth title="Sig In">
             <form className={classes.form} noValidate>
                 <TextField
                     variant="outlined"

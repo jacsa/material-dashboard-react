@@ -1,9 +1,25 @@
 import React from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
 
-const loading = () => <div className="d-flex justify-content-center m-5">
-  <div className="spinner-border spinner-border-lg text-danger" role="status">
-    <span className="sr-only">Cargando...</span>
-  </div>
-</div>;
+const useStyles = makeStyles(theme => ({
+  progress: {
+    margin: theme.spacing(2),
+  },
+  center:{
+    width:"100%",
+    textAlign:"center",
+    zIndex:999
+  }
+}));
 
-export default loading;
+
+
+const Loading = () => {
+  const classes = useStyles();
+  return ( 
+    <div className={classes.center}> <CircularProgress className={classes.progress} color="secondary" />  </div>
+  );
+}
+
+export default Loading;

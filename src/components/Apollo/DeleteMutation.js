@@ -1,7 +1,7 @@
 import React from 'react'
 import { Mutation } from "react-apollo";
 import PropTypes from 'prop-types';
-
+import DeleteIcon from '@material-ui/icons/Delete';
 const DeleteMutation = ({ mutation,variables,onCompleted,onError }) => {
     return (
          <Mutation mutation={mutation} onCompleted={onCompleted} onError={onError} >
@@ -11,7 +11,7 @@ const DeleteMutation = ({ mutation,variables,onCompleted,onError }) => {
                         e.preventDefault(); if (window.confirm('Are you sure you wish to delete this item?')) deleteAction({
                             variables: variables
                         })
-                    }} > Delete</a> /*Agregar icono<Icon name='delete' /> */
+                    }} >  <DeleteIcon color="secondary" /></a> /*Agregar icono<Icon name='delete' /> */
                     )
                 }
             }

@@ -43,6 +43,10 @@ const Sidebar = ({ ...props }) => {
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
+
+        if(!prop.visible)
+          return null;
+
         var activePro = " ";
         var listItemClasses;
         if (prop.path === "/upgrade-to-pro") {

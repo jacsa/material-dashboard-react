@@ -46,12 +46,23 @@ const switchRoutes = (
       if (prop.layout === "/admin") {
         return (
           <Route
+            exact
+            path={prop.layout + prop.path}
+            component={prop.component}
+            key={key}
+          />
+        );
+      }else {
+        //console.log(prop.layout + prop.path);
+        return (
+          <Route
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}
           />
         );
       }
+
       return null;
     })}
     {/* <Redirect from="/admin" to="/admin/dashboard" /> */}

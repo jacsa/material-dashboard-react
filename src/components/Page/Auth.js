@@ -16,7 +16,7 @@ const Auth = (props) => {
             <CssBaseline />
             <Card>
                 <CardHeader color="danger">
-                    <Typography component="h1" variant="h5"> Sign in </Typography>
+                    <Typography component="h1" variant="h5"> {props.title} </Typography>
                 </CardHeader>
                 <CardBody>
                     <div className={classes.paper}>

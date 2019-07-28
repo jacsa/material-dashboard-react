@@ -48,7 +48,7 @@ function Header({ ...props }) {
   const appBarClasses = classNames({
     [" " + classes[color]]: color
   });
-  console.log(props);
+  //console.log(props);
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>

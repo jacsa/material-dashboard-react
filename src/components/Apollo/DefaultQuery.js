@@ -27,7 +27,7 @@ const DefaultQuery = ({ query, fetchPolicy, variables = {}, children }) => (
 
 DefaultQuery.propTypes = {
     query: PropTypes.any.isRequired,
-    fetchPolicy: PropTypes.string.isRequired,
+    fetchPolicy: PropTypes.any.isRequired,
     variables: PropTypes.object
 }
 

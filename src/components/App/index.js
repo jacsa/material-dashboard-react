@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
+
 import Admin from "../../layouts/Admin";
 import SignIn from "../../views/Auth/SignIn";
 
