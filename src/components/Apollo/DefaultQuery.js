@@ -13,12 +13,9 @@ const DefaultQuery = ({ query, fetchPolicy, variables = {}, children }) => (
                 debugger
                 console.log(error);
                 return (
-                    // <Header as="h3">
-                       <div>{error.message}</div> 
-                    // </Header>
+                    <div>{error.message}</div> 
                 );
             }
-
             return children({ data, fetchMore, subscribeToMore, refetch });
         }}
     </Query>

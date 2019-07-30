@@ -10,7 +10,7 @@ function DefaultMutation({ mutation, onCompleted, children }) {
                 if (e.networkError.result != null)
                     console.log(e.networkError.result)
         }}
-            onCompleted={onCompleted}  >
+            onCompleted={onCompleted}>
             {
                 (mutationAction, { loading, error, data }) => {
                     if (loading)

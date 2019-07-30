@@ -13,6 +13,15 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
  */
+
+ .App {
+  font-family: sans-serif;
+  text-align: center;
+}
+ form fieldset {
+  border: none;
+}
+
 .ct-grid {
   stroke: rgba(255, 255, 255, 0.2);
   stroke-width: 1px;

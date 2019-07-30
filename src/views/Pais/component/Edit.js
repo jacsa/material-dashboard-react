@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Form from "react-jsonschema-form";
-import SchemaForm from 'jsonschema-form-for-material-ui';
-import { GET_PAIS_BY_ID, UPDATE_PAIS } from '../../queries/pais';
-import { GET_SCHEMA_FORM_BY_NAME } from '../../queries/schemaForm';
+//import Form from "react-jsonschema-form";
+import { GET_PAIS_BY_ID, UPDATE_PAIS } from '../../../queries/pais';
+import { GET_SCHEMA_FORM_BY_NAME } from '../../../queries/schemaForm';
 
-import Apollo from '../../components/Apollo';
+import Apollo from '../../../components/Apollo';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import withStyles from "@material-ui/core/styles/withStyles";
-import SaveIcon from '@material-ui/icons/Save';
-import EditIcon from '@material-ui/icons/Edit';
+import Form from "../../../components/FormGenerationEngine";
 
 const log = (type) => console.log.bind(console, type);
 const onError = (errors) => console.log("I have", errors.length, "errors to fix");
@@ -24,25 +22,27 @@ const styles = theme => ({
     root: {},
   });
 
-  function ErrorListTemplate(props) {
+function ErrorListTemplate(props) {
     const {errors} = props;
     return (
       <ul>
-        {errors.map(error => (
-            <li key={error.stack}>
-              {error.stack}
-            </li>
-          ))}
+        {
+        //     errors.map(error => (
+        //     <li key={error.stack}>
+        //       {error.stack}
+        //     </li>
+        //   ))
+        }
       </ul>
     );
-  }
+}
 
-const Edit = ({ history, match: { params }, classes }) => {
+const Edit = ({id, history, match: { params }, classes }) => {
     return ( 
         <Apollo.DefaultQuery fetchPolicy="no-cache" query={GET_SCHEMA_FORM_BY_NAME} variables={{ name: "pais" }} >
             {({ data: { schemaForm } }) => {
                 return (
-                    <Apollo.DefaultQuery query={GET_PAIS_BY_ID} variables={{ id : parseInt(params.id) }} fetchPolicy="no-cache">
+                    <Apollo.DefaultQuery query={GET_PAIS_BY_ID} variables={{ id : id }} fetchPolicy="no-cache">
                         {({ data: { pais } }) => {
                             return <>
                                 <Apollo.DefaultMutation mutation={UPDATE_PAIS} onCompleted={(info) => {
@@ -50,17 +50,15 @@ const Edit = ({ history, match: { params }, classes }) => {
                                 }} >
                                     {({ mutationAction }) => {
                                         console.log(pais);
-                                        return <SchemaForm id="id" 
-                                            schema={schemaForm.schema}
-                                            classes={classes}
+                                        return <Form id="id" 
                                             key={params.id}
-                                            liveValidate
+                                            liveValidate={true}
                                             formData={pais}
-                                            ErrorList={ErrorListTemplate}
+                                            schema={schemaForm.schema}
                                             uiSchema={schemaForm.uischema.properties}
                                             onSubmit={async ({ formData }, e) => {
                                                 delete formData.__typename;
-                                                console.log(formData);
+                                                // console.log(formData);
                                                 await mutationAction({
                                                     variables: {
                                                         id: parseInt(params.id),
@@ -69,12 +67,7 @@ const Edit = ({ history, match: { params }, classes }) => {
                                                 });
                                             }}
                                             onError={onError}
-                                            onChange={log}>{
-                                            <div>
-                                                    <EditIcon onClick={onCancel}/>
-                                                    <EditIcon onClick={onCancel}/>
-                                            </div>}
-                                        </SchemaForm>
+                                            onChange={log} />
                                     }}
                                 </Apollo.DefaultMutation>
                             </>
@@ -87,8 +80,10 @@ const Edit = ({ history, match: { params }, classes }) => {
 };
 
 Edit.propTypes = {
-    classes : PropTypes.any
+    classes : PropTypes.any,
+    id: PropTypes.number.isRequired
 };
 
 export default compose(withStyles(styles),withRouter)(Edit);
 
+//https://codesandbox.io/s/13vo8wj13?from-embed

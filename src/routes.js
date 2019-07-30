@@ -24,7 +24,7 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import Pais from "views/Pais/index";
-import EditPais from "./views/Pais/Edit";
+import FormPais from "./views/Pais/Form";
 {/* <Route exact path="/admin/pais/editpais/:id" component={EditPais} /> */}
 
 const dashboardRoutes = [
@@ -56,10 +56,18 @@ const dashboardRoutes = [
     visible : true
   },
   {
-    path: "/edit/:id",
-    name: "Country Edit",
+    path: "/form/:id",
+    //name: "Country Edit",
     icon: LocationOn,
-    component: EditPais,
+    component: FormPais,
+    layout: "/admin/pais",
+    visible : false
+  },
+  {
+    path: "/form",
+    //name: "Country Edit",
+    icon: LocationOn,
+    component: FormPais,
     layout: "/admin/pais",
     visible : false
   }
