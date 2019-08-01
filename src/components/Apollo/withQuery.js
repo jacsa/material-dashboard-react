@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import Apollo from '../Apollo';
+import React from 'react';
+import Card from '../Card/Card.jsx';
+import CardHeader from "../Card/CardHeader.jsx";
+import CardBody from "../Card/CardBody.jsx";
+import DefaultQuery from './DefaultQuery';
 
 const withQuery = injectedProps => Component => {
     const WithQuery = props => {
@@ -12,11 +12,11 @@ const withQuery = injectedProps => Component => {
                     <div>Listado</div>
                 </CardHeader>
                 <CardBody>
-                    {<Apollo.DefaultQuery query={injectedProps.columnQuery} fetchPolicy={"no-cache"} variables={{ name: injectedProps.schemaName }} >
+                    {<DefaultQuery query={injectedProps.columnQuery} fetchPolicy={"no-cache"} variables={{ name: injectedProps.schemaName }} >
                         {({ data: { schemaForm } }) => {
                             return <Component {...props} columns={schemaForm.columns} />
                         }}
-                    </Apollo.DefaultQuery>}
+                    </DefaultQuery>}
                 </CardBody>
             </Card>
         )

@@ -19,13 +19,16 @@
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 import LocationOn from "@material-ui/icons/LocationOn";
+import Adjust from "@material-ui/icons/Adjust";
 
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import Pais from "views/Pais/index";
 import FormPais from "./views/Pais/Form";
-{/* <Route exact path="/admin/pais/editpais/:id" component={EditPais} /> */}
+
+import SchemaFormList from "./views/SchemaForm/List";
+import SchemaForm from "./views/SchemaForm/Form";
 
 const dashboardRoutes = [
   {
@@ -49,7 +52,6 @@ const dashboardRoutes = [
   {
     path: "/pais",
     name: "Country",
-    rtlName: "طباعة",
     icon: LocationOn,
     component: Pais,
     layout: "/admin",
@@ -57,7 +59,6 @@ const dashboardRoutes = [
   },
   {
     path: "/form/:id",
-    //name: "Country Edit",
     icon: LocationOn,
     component: FormPais,
     layout: "/admin/pais",
@@ -65,12 +66,32 @@ const dashboardRoutes = [
   },
   {
     path: "/form",
-    //name: "Country Edit",
     icon: LocationOn,
     component: FormPais,
     layout: "/admin/pais",
     visible : false
-  }
+  },
+
+  {
+    path: "/schemaForm",
+    name: "Config",
+    icon: Adjust,
+    component: SchemaFormList,
+    layout: "/admin",
+    visible : true
+  },
+  {
+    path: "/form/:id",
+    component: SchemaForm,
+    layout: "/admin/schemaForm",
+    visible : false
+  },
+  {
+    path: "/form",
+    component: SchemaForm,
+    layout: "/admin/schemaForm",
+    visible : false
+  },
 ];
 
 export default dashboardRoutes;

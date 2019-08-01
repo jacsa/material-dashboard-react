@@ -1,7 +1,5 @@
 import React from 'react';
-import { GET_ALL_PAISES, DELETE_PAIS } from '../../queries/pais';
-import { GET_SCHEMA_FORM_COLUMNS_BY_NAME } from '../../queries/schemaForm';
-import WithQuery from '../../components/Apollo/withQuery';
+import { GET_ALL_SCHEMA_FORM, DELETE_SCHEMA_FORM  } from '../../queries/schemaForm';
 import DataGrid from '../../components/DataGrid/DataGrid';
 import refetchComponent from '../../components/DataGrid/refetchComponent';
 import toNavigateComponent from '../../components/DataGrid/toNavigateComponent';
@@ -18,12 +16,14 @@ const notify = () => toast.success("Eliminado exitosamente!");
 const actionBar = props => {
     return (
         <div>
-            <CustomLink to={`/admin/pais/form/${props.data.id}`} history={props.history} />
-            <Apollo.DeleteMutation mutation={DELETE_PAIS} variables={{ input: { id: props.data.id } }}
-                onCompleted={(info) => { notify(); props.refetch();}} />
+            <CustomLink to={`/admin/schemaForm/form/${props.data.id}`} history={props.history} />
+            <Apollo.DeleteMutation mutation={DELETE_SCHEMA_FORM} variables={{ input: { id: props.data.id } }}
+                onCompleted={(info) => { notify(); props.refetch(); }} />
         </div>
     )
 };
+
+const columns = [{ "field": "name", "title": "Nombre" }, { "type": "boolean", "field": "estatus", "title": "Estatus" }];
 
 const List = (props) => {
     return (
@@ -35,18 +35,19 @@ const List = (props) => {
                 closeOnClick
                 rtl={false}
                 draggable
-                pauseOnHover/>
-
-            <Apollo.DefaultQuery query={GET_ALL_PAISES} fetchPolicy={"no-cache"}>
-                {({ data: { paises }, refetch }) => {
-                    return <DataGrid columns={props.columns}
+                pauseOnHover />
+            
+            <Apollo.DefaultQuery query={GET_ALL_SCHEMA_FORM} fetchPolicy={"no-cache"}>
+                {({ data: { schemaForms }, refetch }) => {
+                    return <DataGrid 
+                        columns={columns}
                         actionComponent={compose(withRouter,  refetchComponent(refetch))(actionBar)}
-                        toolBarComponent={compose(withRouter, toNavigateComponent("/admin/pais/form/"))(ToolBarComponent)}
-                        data={paises} />
+                        toolBarComponent={compose(withRouter, toNavigateComponent("/admin/schemaForm/form/"))(ToolBarComponent)}
+                        data={schemaForms} />
                 }}
             </Apollo.DefaultQuery>
         </>
     );
 };
-export default compose(withRouter, WithQuery({ columnQuery: GET_SCHEMA_FORM_COLUMNS_BY_NAME, schemaName: "pais" }))(List);
+export default compose(withRouter)(List);
 

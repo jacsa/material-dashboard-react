@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Downshift from "downshift";
+//import Downshift from "downshift";
 import {
-  Paper,
-  Popper,
-  TextField,
-  MenuItem,
+  //Paper,
+  //Popper,
+  //TextField,
+  //MenuItem,
   FormHelperText
 } from "@material-ui/core";
 
@@ -32,11 +32,11 @@ class Autocomplete extends Component {
   render() {
     // const { id, required, schema, value, onChange, rawErrors, options } = props;
     const {
-      id,
+      //id,
       required,
       schema,
-      value,
-      rawErrors,
+      //value,
+      //rawErrors,
       options,
       suggestionComponent = item => <span>{item.label}</span>,
       isItemSelected = (selectedItem, suggestion) => {
@@ -126,45 +126,45 @@ class Autocomplete extends Component {
 
 export default Autocomplete;
 
-function renderInput(inputProps) {
-  const { InputProps, ref, style = {}, ...other } = inputProps;
-  return (
-    <TextField
-      InputProps={{
-        inputRef: ref,
-        ...InputProps,
-        style: {
-          fontSize: 14,
-          ...style
-        }
-      }}
-      {...other}
-    />
-  );
-}
-function renderSuggestion({
-  suggestion,
-  index,
-  itemProps,
-  highlightedIndex,
-  selectedItem,
-  suggestionComponent,
-  isItemSelected
-}) {
-  const isHighlighted = highlightedIndex === index;
-  const isSelected = isItemSelected(selectedItem, suggestion); // (selectedItem || "").indexOf(suggestion.label) > -1;
-  const SuggestionComponent = suggestionComponent;
-  return (
-    <MenuItem
-      {...itemProps}
-      key={suggestion.label}
-      selected={isHighlighted}
-      component="div"
-      style={{
-        fontWeight: isSelected ? 500 : 400
-      }}
-    >
-      <SuggestionComponent suggestion={suggestion} />
-    </MenuItem>
-  );
-}
+// function renderInput(inputProps) {
+//   const { InputProps, ref, style = {}, ...other } = inputProps;
+//   return (
+//     <TextField
+//       InputProps={{
+//         inputRef: ref,
+//         ...InputProps,
+//         style: {
+//           fontSize: 14,
+//           ...style
+//         }
+//       }}
+//       {...other}
+//     />
+//   );
+// }
+// function renderSuggestion({
+//   suggestion,
+//   index,
+//   itemProps,
+//   highlightedIndex,
+//   selectedItem,
+//   suggestionComponent,
+//   isItemSelected
+// }) {
+//   const isHighlighted = highlightedIndex === index;
+//   const isSelected = isItemSelected(selectedItem, suggestion); // (selectedItem || "").indexOf(suggestion.label) > -1;
+//   const SuggestionComponent = suggestionComponent;
+//   return (
+//     <MenuItem
+//       {...itemProps}
+//       key={suggestion.label}
+//       selected={isHighlighted}
+//       component="div"
+//       style={{
+//         fontWeight: isSelected ? 500 : 400
+//       }}
+//     >
+//       <SuggestionComponent suggestion={suggestion} />
+//     </MenuItem>
+//   );
+//}

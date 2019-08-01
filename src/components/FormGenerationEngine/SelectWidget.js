@@ -7,7 +7,7 @@ import {
   Input as MInput
 } from "@material-ui/core";
 import { getError } from "./utils";
-import MultiSelectWidget from "./MultiSelectWidget";
+//import MultiSelectWidget from "./MultiSelectWidget";
 import AutocompleteWidget from "./AutocompleteWidget";
 
 // TODO: We can even add start and end adornments in the second phase

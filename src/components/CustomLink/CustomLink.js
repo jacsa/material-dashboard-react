@@ -3,7 +3,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import PropTypes from 'prop-types'
 const CustomLink = ({to,history}) => {
     return (
-        <EditIcon color="primary" onClick={(e) => { history.push(to); }} />
+        <EditIcon color="action" onClick={(e) => { history.push(to); }} />
     );
 }
 

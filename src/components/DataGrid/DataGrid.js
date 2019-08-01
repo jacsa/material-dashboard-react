@@ -2,8 +2,15 @@ import React from 'react';
 import MaterialTable  from "material-table";
 import PropTypes from 'prop-types'
 
-
+const defaultBar = props => {
+    return (
+        <div>
+           
+        </div>
+    )
+};
 const DataGrid = ({ columns, data, actionComponent, toolBarComponent }) => {
+    console.log(data);
     return (
         <MaterialTable
             title=""
@@ -21,8 +28,8 @@ const DataGrid = ({ columns, data, actionComponent, toolBarComponent }) => {
                 actionsColumnIndex: -1
             }}
             components={{
-                Action: actionComponent,
-                Toolbar: toolBarComponent
+                Action: actionComponent || defaultBar,
+                Toolbar: toolBarComponent || defaultBar
             }}
         />
     );

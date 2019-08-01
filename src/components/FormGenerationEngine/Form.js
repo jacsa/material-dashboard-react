@@ -6,6 +6,8 @@ import SelectWidget from "./SelectWidget";
 import CheckboxWidget from "./CheckboxWidget";
 import FieldTemplate from "./FieldTemplate";
 import RadioWidget from "./RadioWidget";
+import Grid from '@material-ui/core/Grid';
+
 
 const widgets = {
   BaseInput,
@@ -14,9 +16,9 @@ const widgets = {
   RadioWidget
 };
 
-const Form = ({ onSubmit, uiSchema = {}, formData,schema, liveValidate = true }) => {
+const Form = ({ onSubmit, uiSchema = {}, formData, schema, liveValidate = true, onCancel,fields, ArrayFieldTemplate }) => {
   return (
-    <div style={{  }}>
+    <div>
       <MForm
         noHtml5Validate
         FieldTemplate={FieldTemplate}
@@ -26,12 +28,23 @@ const Form = ({ onSubmit, uiSchema = {}, formData,schema, liveValidate = true })
         widgets={widgets}
         showErrorList={false}
         liveValidate={liveValidate}
+        fields={fields}
+        ArrayFieldTemplate={ArrayFieldTemplate}
         onSubmit={onSubmit}
       >
         <div style={{ paddingLeft: 12 }}>
-          <Button type="submit" variant="contained" color="primary">
-            Submit
-          </Button>
+          <Grid container spacing={1}>
+            <Grid item >
+              <Button type="submit" variant="contained" color="default">
+                Save
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button type="button" onClick={onCancel} variant="contained" color="primary">
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
         </div>
       </MForm>
     </div>

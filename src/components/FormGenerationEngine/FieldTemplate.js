@@ -1,10 +1,9 @@
 import React from "react";
 
 function FieldTemplate(props) {
-  const { classNames, description, children } = props;
+  const { classNames, children } = props;//description
   return (
     <div className={classNames}>
-      {/* {description} */}
       {children}
     </div>
   );
